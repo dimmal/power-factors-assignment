@@ -1,0 +1,10 @@
+<div class="chart-wrapper">
+  <ng-container *ngIf="this.data.length > 0">
+
+    <highcharts-chart class="chart" [Highcharts]="highcharts" [options]="chartOptions">
+    </highcharts-chart>
+
+    <mat-icon class="download-icon" (click)="downloadFile()">file_download</mat-icon>
+  </ng-container>
+
+</div>
