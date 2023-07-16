@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DisneyState, disney$, getCharacters } from '../core/store/disney';
-import { Subject, debounceTime, distinctUntilChanged, filter, takeUntil } from 'rxjs';
+import { Subject, debounceTime, distinctUntilChanged, filter, takeUntil, tap } from 'rxjs';
 import { Character } from '../core/models/character';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -34,7 +34,7 @@ export class DashboardComponent {
     private route: ActivatedRoute,
     private dialog: MatDialog) {
 
-      this.createForm();
+    this.createForm();
   }
 
   ngOnInit() {
@@ -67,7 +67,11 @@ export class DashboardComponent {
    * Listen to state changes in the Disney store and update the UI accordingly
    */
   listenToStoreChanges() {
-    this.store.select(disney$).pipe(filter(state => state.characters.length > 0), takeUntil(this.onDestroy$)).subscribe(state => {
+    this.store.select(disney$).pipe(
+      tap(() => { this.isLoading = false }),
+      filter(state => state.characters.length > 0),
+      takeUntil(this.onDestroy$)
+    ).subscribe(state => {
       this.updatePageWithState(state);
     });
   }
@@ -76,7 +80,6 @@ export class DashboardComponent {
    * Update the page data
    */
   updatePageWithState(state: DisneyState) {
-    this.isLoading = false;
     this.dataSource.data = state.characters;
     this.totalPages = state.info?.totalPages || 0;
   }
@@ -136,7 +139,7 @@ export class DashboardComponent {
       pageSize: this.searchForm.get('pageSize')?.value,
       name: this.searchForm.get('name')?.value,
       tvShows: this.searchForm.get('tvShows')?.value
-     }));
+    }));
   }
 
   /**
