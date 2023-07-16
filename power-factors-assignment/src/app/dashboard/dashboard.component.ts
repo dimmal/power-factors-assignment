@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DisneyState, disney$, getCharacters } from '../core/store/disney';
 import { Subject, debounceTime, distinctUntilChanged, filter, takeUntil, tap } from 'rxjs';
@@ -18,6 +18,7 @@ import { CharacterDetailsDialogComponent } from '../character-details-dialog/cha
 export class DashboardComponent {
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('resultsWrapper') resultsWrapper: ElementRef;
 
   page = 1;
   totalPages = 0;
@@ -133,6 +134,8 @@ export class DashboardComponent {
   search() {
     this.isLoading = true;
     this.dataSource.data = [];
+
+    this.resultsWrapper?.nativeElement.scrollTo(0, 0);
 
     this.store.dispatch(getCharacters({
       page: this.page,
