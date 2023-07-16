@@ -76,7 +76,6 @@ export class DashboardComponent {
    * Update the page data
    */
   updatePageWithState(state: DisneyState) {
-    console.log('adasdas');
     this.isLoading = false;
     this.dataSource.data = state.characters;
     this.totalPages = state.info?.totalPages || 0;
