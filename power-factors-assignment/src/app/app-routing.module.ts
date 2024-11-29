@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { FeedListComponent } from './core/components/feed-list/feed-list.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: DashboardComponent,
-    runGuardsAndResolvers: 'always'
+    path: 'feed',
+    component: FeedListComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'feed'
   }
 ];
 
