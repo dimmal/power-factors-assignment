@@ -11,6 +11,8 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { FeedListComponent } from './core/components/feed-list/feed-list.component';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { VirtualScrollerModule } from 'ngx-virtual-scroller';
     AppRoutingModule,
     NgxSkeletonLoaderModule,
     VirtualScrollerModule,
+    MatSlideToggleModule,
+    MatDialogModule
   ],
   providers: [
 

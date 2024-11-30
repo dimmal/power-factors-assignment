@@ -1,14 +1,19 @@
 <div class="feed-list-wrapper">
 
+  <mat-slide-toggle class="toggle-saved-data" labelPosition="before" [(ngModel)]="useSavedData" (change)="useSavedDataToggled()">Use saved data</mat-slide-toggle>
+
   <div class="vs-wrapper" #scrollingWrapper>
     <virtual-scroller [items]="items" #scroll [bufferAmount]="10" [parentScroll]="scrollingWrapper">
       <div class="feed-entry mat-elevation-z3" *ngFor="let item of scroll.viewPortItems" [ngClass]="{ 'is-inactive': item._feed_entry.status === 'INACTIVE'}">
+        <span class="color-code"></span>
+
         <div class="info-wrapper">
           <div class="title">{{item.title}}</div>
           <div class="businesss-name">{{item._feed_entry.businessName}}</div>
           <div class="municipal">{{item._feed_entry.municipal}}</div>
         </div>
         <div class="details-wrapper">
+          <div class="inactive-label" *ngIf="item._feed_entry.status === 'INACTIVE'">Inactive</div>
           <div class="date-modified">{{item.date_modified | date: 'dd MMM yyyy HH:mm'}}</div>
         </div>
       </div>
