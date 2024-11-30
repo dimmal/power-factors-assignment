@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,7 @@ import { FeedListComponent } from './core/components/feed-list/feed-list.compone
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { HTTPInterceptor } from './core/interceptors/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule
   ],
   providers: [
-
+    { provide: HTTP_INTERCEPTORS, useClass: HTTPInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
